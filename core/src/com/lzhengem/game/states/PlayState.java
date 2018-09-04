@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lzhengem.game.FlappyDemo;
 import com.lzhengem.game.sprites.Bird;
+import com.lzhengem.game.sprites.Tube;
 
 public class PlayState extends State {
     private Bird bird;
     private Texture bg;
+    private Tube tube;
 
 
     public PlayState(GameStateManager gsm) {
@@ -17,6 +19,7 @@ public class PlayState extends State {
         //view smaller portion of screen
         cam.setToOrtho(false, FlappyDemo.WIDTH/2,FlappyDemo.HEIGHT/2);
         bg = new Texture("bg.png");
+        tube = new Tube(100);
     }
 
     @Override
@@ -44,6 +47,8 @@ public class PlayState extends State {
         //draw the bg wherever the camera is positioned
         sb.draw(bg, cam.position.x - (cam.viewportWidth/2),0);
         sb.draw(bird.getTexture(),bird.getPosition().x,bird.getPosition().y);
+        sb.draw(tube.getTobTube(), tube.getPosTopTube().x,tube.getPosTopTube().y);
+        sb.draw(tube.getBottomTube(),tube.getPosBotTube().x, tube.getPosBotTube().y);
         sb.end();
 
     }
