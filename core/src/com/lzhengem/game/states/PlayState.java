@@ -8,12 +8,15 @@ import com.lzhengem.game.sprites.Bird;
 
 public class PlayState extends State {
     private Bird bird;
+    private Texture bg;
+
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         bird = new Bird(50,300);
         //view smaller portion of screen
         cam.setToOrtho(false, FlappyDemo.WIDTH/2,FlappyDemo.HEIGHT/2);
+        bg = new Texture("bg.png");
     }
 
     @Override
@@ -38,6 +41,8 @@ public class PlayState extends State {
         //and part of the bg is not showing (ie. the pipes)
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+        //draw the bg wherever the camera is positioned
+        sb.draw(bg, cam.position.x - (cam.viewportWidth/2),0);
         sb.draw(bird.getTexture(),bird.getPosition().x,bird.getPosition().y);
         sb.end();
 
