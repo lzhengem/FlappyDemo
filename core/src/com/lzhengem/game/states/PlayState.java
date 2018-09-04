@@ -1,5 +1,6 @@
 package com.lzhengem.game.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lzhengem.game.FlappyDemo;
@@ -10,12 +11,16 @@ public class PlayState extends State {
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        bird = new Bird(50,100);
+        bird = new Bird(50,300);
+        //view smaller portion of screen
         cam.setToOrtho(false, FlappyDemo.WIDTH/2,FlappyDemo.HEIGHT/2);
     }
 
     @Override
     protected void handleInput() {
+        if(Gdx.input.justTouched()){
+            bird.jump();
+        }
 
     }
 
