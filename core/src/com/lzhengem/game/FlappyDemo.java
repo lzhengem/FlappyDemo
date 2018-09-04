@@ -3,10 +3,9 @@ package com.lzhengem.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.lzhengem.game.States.GameStateManager;
-import com.lzhengem.game.States.MenuState;
+import com.lzhengem.game.states.GameStateManager;
+import com.lzhengem.game.states.MenuState;
 
 public class FlappyDemo extends ApplicationAdapter {
     //width and height of our screen

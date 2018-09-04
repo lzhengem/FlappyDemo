@@ -1,4 +1,4 @@
-package com.lzhengem.game.States;
+package com.lzhengem.game.states;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,5 +34,11 @@ public class MenuState extends State{
         sb.draw(playBtn,(FlappyDemo.WIDTH/2) - (playBtn.getWidth() / 2), FlappyDemo.HEIGHT/2);
         sb.end();
 
+    }
+
+    @Override
+    public void dispose() {
+        background.dispose();
+        playBtn.dispose();
     }
 }

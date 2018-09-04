@@ -1,4 +1,4 @@
-package com.lzhengem.game.States;
+package com.lzhengem.game.states;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,6 +23,8 @@ public abstract class State {
     public abstract void update(float dt);
     //spritebatch container for things we need to render to screen
     public abstract void render(SpriteBatch sb);
+    //to get rid of textures and other medias to avoid memory leaks
+    public abstract void dispose();
 
 
 }
