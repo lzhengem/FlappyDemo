@@ -3,14 +3,20 @@ package com.lzhengem.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.lzhengem.game.FlappyDemo;
 import com.lzhengem.game.sprites.Bird;
 import com.lzhengem.game.sprites.Tube;
 
 public class PlayState extends State {
+    //the spaces between each tubes
+    private static final int TUBE_SPACING = 125;
+    //how many total tubes we will have
+    private static final int TUBE_COUNT = 4;
     private Bird bird;
     private Texture bg;
-    private Tube tube;
+
+    private Array<Tube> tubes;
 
 
     public PlayState(GameStateManager gsm) {
@@ -19,7 +25,12 @@ public class PlayState extends State {
         //view smaller portion of screen
         cam.setToOrtho(false, FlappyDemo.WIDTH/2,FlappyDemo.HEIGHT/2);
         bg = new Texture("bg.png");
-        tube = new Tube(100);
+
+        //create all your tubes up to the max
+        tubes = new Array<Tube>();
+        for(int i = 1; i < TUBE_COUNT; i++){
+            tubes.add(new Tube(i *(TUBE_SPACING + Tube.TUBE_WIDTH)));
+        }
     }
 
     @Override
@@ -34,6 +45,13 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
+        //reposition tubes
+        for(Tube tube: tubes){
+            //if the tube is to the left of the screen, move it
+            if(cam.position.x - (cam.viewportWidth)/2 > tube.getPosTopTube().x + tube.getTobTube().getWidth()){
+                tube.reposition(tube.getPosTopTube().x +((Tube.TUBE_WIDTH + TUBE_SPACING) *TUBE_SPACING));
+            }
+        }
 
 
     }
@@ -47,6 +65,7 @@ public class PlayState extends State {
         //draw the bg wherever the camera is positioned
         sb.draw(bg, cam.position.x - (cam.viewportWidth/2),0);
         sb.draw(bird.getTexture(),bird.getPosition().x,bird.getPosition().y);
+        //draw the tubes
         sb.draw(tube.getTobTube(), tube.getPosTopTube().x,tube.getPosTopTube().y);
         sb.draw(tube.getBottomTube(),tube.getPosBotTube().x, tube.getPosBotTube().y);
         sb.end();

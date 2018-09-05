@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
 public class Tube {
+    //the size of our tube texture photo is 52
+    public static final int TUBE_WIDTH = 52;
     private Texture tobTube, bottomTube;
     private Vector2 posTopTube, posBotTube;
     private Random rand;
@@ -36,5 +38,11 @@ public class Tube {
 
     public Vector2 getPosBotTube() {
         return posBotTube;
+    }
+
+    public void reposition(float x){
+        //this is to move tubes off screen to a new location
+        posTopTube.set(x,rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+        posBotTube.set(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
     }
 }
