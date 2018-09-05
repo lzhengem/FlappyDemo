@@ -52,8 +52,12 @@ public class PlayState extends State {
         //reposition tubes
         for(Tube tube: tubes){
             //if the tube is to the left of the screen, move it
-            if(cam.position.x - (cam.viewportWidth)/2 > tube.getPosTopTube().x + tube.getTobTube().getWidth()){
+            if(cam.position.x - (cam.viewportWidth)/2 > tube.getPosTopTube().x + tube.getTopTube().getWidth()){
                 tube.reposition(tube.getPosTopTube().x +((Tube.TUBE_WIDTH + TUBE_SPACING) *TUBE_COUNT));
+            }
+            //loops through to check if each tube hits the bird
+            if (tube.collides(bird.getBounds())){
+                gsm.set(new PlayState(gsm));
             }
         }
         cam.update(); //tells libgdx that the camera has been updated
@@ -72,7 +76,7 @@ public class PlayState extends State {
         sb.draw(bird.getTexture(),bird.getPosition().x,bird.getPosition().y);
         //draw the tubes
         for (Tube tube: tubes) {
-            sb.draw(tube.getTobTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
+            sb.draw(tube.getTopTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
             sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
         }
         sb.end();
