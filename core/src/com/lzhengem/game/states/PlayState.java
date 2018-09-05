@@ -28,7 +28,7 @@ public class PlayState extends State {
 
         //create all your tubes up to the max
         tubes = new Array<Tube>();
-        for(int i = 1; i < TUBE_COUNT; i++){
+        for(int i = 1; i <= TUBE_COUNT; i++){
             tubes.add(new Tube(i *(TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
     }
@@ -45,13 +45,18 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
+        //set the camera to follow the bird. move it 80 pixels to the right
+        cam.position.x = bird.getPosition().x + 80;
+
+
         //reposition tubes
         for(Tube tube: tubes){
             //if the tube is to the left of the screen, move it
             if(cam.position.x - (cam.viewportWidth)/2 > tube.getPosTopTube().x + tube.getTobTube().getWidth()){
-                tube.reposition(tube.getPosTopTube().x +((Tube.TUBE_WIDTH + TUBE_SPACING) *TUBE_SPACING));
+                tube.reposition(tube.getPosTopTube().x +((Tube.TUBE_WIDTH + TUBE_SPACING) *TUBE_COUNT));
             }
         }
+        cam.update(); //tells libgdx that the camera has been updated
 
 
     }
@@ -66,8 +71,10 @@ public class PlayState extends State {
         sb.draw(bg, cam.position.x - (cam.viewportWidth/2),0);
         sb.draw(bird.getTexture(),bird.getPosition().x,bird.getPosition().y);
         //draw the tubes
-        sb.draw(tube.getTobTube(), tube.getPosTopTube().x,tube.getPosTopTube().y);
-        sb.draw(tube.getBottomTube(),tube.getPosBotTube().x, tube.getPosBotTube().y);
+        for (Tube tube: tubes) {
+            sb.draw(tube.getTobTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
+            sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
+        }
         sb.end();
 
     }

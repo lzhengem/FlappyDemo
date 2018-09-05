@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Bird {
     private static final int GRAVITY = -15;
+    //moving forwards
+    private static final int MOVEMENT = 100;
     //need position and texture and velocity(where its going)
     //vector3 uses 3 coordinates x,y,z
     private Vector3 position;
@@ -23,7 +25,8 @@ public class Bird {
             velocity.add(0,GRAVITY,0);
         //multiplies evrything by a deltatime
         velocity.scl(dt);
-        position.add(0,velocity.y,0);
+        //as time goes on, move forward and drops down
+        position.add(MOVEMENT * dt,velocity.y,0);
         //devide it back to original velocity
         velocity.scl(1/dt);
         //if the bird hits the bottom of the screen, keep it there
